@@ -1,0 +1,169 @@
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>Сайтик по доставке еды</title>
+
+	<!-- Google font -->
+	<!--<link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">-->
+
+	<!--&lt;!&ndash; Bootstrap &ndash;&gt;-->
+	<!--<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
+	<link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap1.css' %}">
+	<!-- Slick -->
+	<link type="text/css" rel="stylesheet" href="{% static 'css/slick.css' %}">
+	<link type="text/css" rel="stylesheet" href="{% static 'css/slick-theme.css' %}">
+
+	<!-- nouislider -->
+	<link type="text/css" rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">s
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap1.css'%}">
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+		  <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+		  <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+		<![endif]-->
+
+</head>
+
+<body>
+		<div id="header">
+			<div class="container">
+				<div class="pull-left">
+					<!-- Logo -->
+					<div class="header-logo">
+						<a class="logo" href="#">
+							<img src="{% static 'img/logo.png' %}" alt="">
+						</a>
+					</div>
+
+					<div class="header-search">
+						   <form>
+							   {% csrf_token %}
+							<input class="input search-input" type="text" placeholder="Введите название">
+							<select class="input search-categories">
+
+								<option value="0">Поиск по ресторанам</option>
+								<option value="1">Поиск по блюдам</option>
+							</select>
+							<a href="" class="search-btn"><i class="fa fa-search"></i></a>
+						</form>
+					</div>
+
+
+{% block body %}
+{% endblock %}
+
+
+
+
+
+	<!-- FOOTER -->
+	<footer id="footer" class="section section-grey">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<!-- footer widget -->
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="footer">
+						<!-- footer logo -->
+						<div class="footer-logo">
+							<a class="logo" href="#">
+		        <img src="{% static 'img/logo.png' %}" alt="">
+		          </a>
+						</div>
+						<!-- /footer logo -->
+
+						<h5>Звоните нам:</h5>
+						<p>+7(702)6364540</p>
+
+						<h5>Мы в соцсетях:</h5>
+						<!-- footer social -->
+						<ul class="footer-social">
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+						</ul>
+						<!-- /footer social -->
+					</div>
+				</div>
+				<!-- /footer widget -->
+
+				<!-- footer widget -->
+
+				<!-- /footer widget -->
+
+				<div class="clearfix visible-sm visible-xs"></div>
+
+				<!-- footer widget -->
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-header">Информация клиетам</h3>
+						<ul class="list-links">
+							<li><a href="#">О нас</a></li>
+							<li><a href="#">Контакты</a></li>
+							<li><a href="#">FAQ</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- /footer widget -->
+
+				<!-- footer subscribe -->
+				<div class="col-md-4 col-sm-6 col-xs-6">
+					<div class="footer">
+						<h3 class="footer-header">Подписаться на обновления сайта </h3>
+						<p>Присоединяйтесь к нам и первыми узнавайте
+о самых вкусных местах:</p>
+						<form>
+							<div class="form-group">
+								<input class="input" placeholder="Введи ваш e-mail">
+							</div>
+							<button class="primary-btn">Подписаться</button>
+						</form>
+					</div>
+				</div>
+				<!-- /footer subscribe -->
+			</div>
+			<!-- /row -->
+			<hr>
+			<!-- row -->
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center">
+					<!-- footer copyright -->
+
+					<!-- /footer copyright -->
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</footer>
+	<!-- /FOOTER -->
+
+	<!-- jQuery Plugins -->
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/slick.min.js' %}"></script>
+	<script src="{% static 'js/nouislider.min.js' %}"></script>
+	<script src="{% static 'js/jquery.zoom.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' %}"></script>
+
+
+</body>
+
+</html>
