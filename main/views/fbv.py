@@ -28,7 +28,9 @@ def mynewlogin(request):
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None and user.is_active:
-            auth.login(request, user)
+            auth_login(request, user)
+            print(request.user)
+            print('you logged in')
             return redirect('home')
         else:
             error = "username or password incorrect"
@@ -48,8 +50,5 @@ def current_user(request):
 @api_view(['GET'])
 @csrf_exempt
 def home(request):
-    return render(request,"index.html",{})
-@api_view(['GET'])
-@csrf_exempt
-def sign_in(request):
-    return render(request,'login.html',{})
+    rests = Restaurant.objects.all()[:4]
+    return render(request,"index.html",{'rests':rests})

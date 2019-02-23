@@ -2,18 +2,9 @@
 {% block body %}
 		<!-- header -->
 
-    <script>
-        var e = document.getElementById("input search-categories");
-        var choice = e.options[e.selectedIndex].value;
-        var a = document.getElementById('search-btn');
-        if(choice==1){
-        a.href="search_dish/a"
-        }
-        else{
-        a.href="search_rest/a"
-        }
-    </script>
-				</div>
+
+
+     			</div>
 				<!--riight-->
 				<div class="pull-right">
 					<ul class="header-btns">
@@ -27,16 +18,17 @@
 							</div>
 
 							<a href="#" class="text-uppercase">
-								{% if user.is_authenticated %}
-								{{user}}
-								{% else %}
-								Войти/Создать
-								  {% endif %}
+	  {% if user.is_authenticated %}
+	<span class="users">{{user.username}} |
+	<a href="{% url 'newlogin' %}" >авторизован!</a></span>
+	   {% else %}
+	  <a href="{% url 'newregister' %} " class='users'>нет!</a>
+	      {% endif %}
 							</a>
 							<ul class="custom-menu">
 								<li><a href="{% url 'current_user' %}"><i class="fa fa-user-o"></i> Мой профиль</a></li>
 
-								<li><a href="{% url 'sign_in' %}"><i class="fa fa-unlock-alt"></i> Войти</a></li>
+								<li><a href="{% url 'newlogin' %}"><i class="fa fa-unlock-alt"></i> Войти</a></li>
 								<li><a href="{% url 'newregister' %}"><i class="fa fa-user-plus"></i> Создать профиль</a></li>
 							</ul>
 						</li>
@@ -51,7 +43,7 @@
 								</div>
 								<strong class="text-uppercase">Заказ:</strong>
 								<br>
-								<span>35.20$</span>
+								<span>6000</span>
 							</a>
 							<div class="custom-menu">
 								<div id="shopping-cart">
@@ -71,7 +63,7 @@
 												<img src="static/img/thumb-product01.jpg" alt="">
 											</div>
 											<div class="product-body">
-												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
+												<h3 class="product-price">6000 <span class="qty">x3</span></h3>
 												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
 											</div>
 											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
@@ -95,6 +87,7 @@
 				</div>
 			</div>
 		</div>
+
 	<div id="navigation">
 		<!-- container -->
 		<div class="container">
@@ -119,17 +112,105 @@
 			</div>
 		</div>
 	</div>
+	<!-- HOME -->
+	<div id="home">
+		<!-- container -->
+		<div class="container">
+			<!-- home wrap -->
+			<div class="home-wrap">
+				<!-- home slick -->
+				<div id="home-slick">
+					<!-- banner -->
+					<div class="banner banner-1">
+						<img src="static/img/баннер.jpg" alt="">
+						<div class="banner-caption ">
+							<h1 class="white-color">мы открылись!</h1>
+							<h3 class="white-color font-weak">Steak House</h3>
+							<a href="http://127.0.0.1:8000/rest_detail/2" class="primary-btn">Shop Now</a>
+						</div>
+					</div>
+					<!-- /banner -->
+
+					<!-- banner -->
+					<div class="banner banner-1">
+						<img src="static/img/баннер2.jpg" alt="">
+						<div class="banner-caption">
+							<h1 class="white-color">Лучшие стейки в городе<br><span class="white-color font-weak"></span></h1>
+							<a href="http://127.0.0.1:8000/rest_detail/2"  class="primary-btn">Shop Now</a>
+						</div>
+					</div>
+					<!-- /banner -->
+
+					<!-- banner -->
+					<div class="banner banner-1">
+						<img src="static/img/баннер3.jpg" alt="">
+						<div class="banner-caption">
+							<h1 class="white-color">Новые виды </h1>
+							<a href="http://127.0.0.1:8000/rest_detail/2"  class="primary-btn">Shop Now</a>
+						</div>
+					</div>
+					<!-- /banner -->
+				</div>
+				<!-- /home slick -->
+			</div>
+			<!-- /home wrap -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /HOME -->
+<div class="container">
+			<div class="row">
+				<!-- section title -->
+				<div class="col-md-12">
+					<div class="section-title">
+						<h2 class="title">
+							<a href="{% url 'top_rests' %}">
+							Наши заведения</a>
+						</h2>
+						<div class="pull-right">
+							<div class="product-slick-dots-2 custom-dots">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- section title -->
+
+				<!-- Product Single -->
+{				<div class="col-md-9 col-sm-6 col-xs-6">
+					<div class="row">
+						<div class="container">
+						<div id="product-slick-1" class="product-slick">
+							{% for rest in rests %}
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<div class="product product-single">
+								<div class="product-thumb">
+
+										<img src="{{ rest.images.first.image.url }}" alt="">
+									</div>
+									<div class="product-body">
+
+										<div class="product-rating">
+
+                                		{% for rr in rest.restaurant_reviews.all %}
+
+											<i class="fa fa-star"></i>
+                                        {% endfor %}
+											<i class="fa fa-star-o empty"></i>
+										</div>
+									<a href="http://127.0.0.1:8000/rest_detail/{{rest.id}}" ><h2 class="product-name">{{rest.name}}</h2></a>
+										<div class="product-btns">
+											<a href="http://127.0.0.1:8000/dishes_of_rest/{{rest.id}}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Перейти к меню</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+
+				<!-- /Product Single -->
+
+
+
+						</div></div>
+				<!-- /Product Slick -->
+					</div></div></div>
 {% endblock %}
-{% block js %}
-    <script>
-        var e = document.getElementById("input search-categories");
-        var choice = e.options[e.selectedIndex].value;
-        var a = document.getElementById('search-btn');
-        if(choice==1){
-        a.href="search_dish/a"
-        }
-        else{
-        a.href="search_rest/a"
-        }
-    </script>
-{% endblock js %}

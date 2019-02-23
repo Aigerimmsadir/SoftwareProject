@@ -34,9 +34,19 @@
 		  <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
 		  <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
 		<![endif]-->
+	<script>/*<![CDATA[*/!window.QUnit && document.write('<script src="inc/qunit.js"><\/script>')/*]]>*/</script>
+	<script src="http://swarm.simplecartjs.com/js/inject.js"></script>
+
 
 </head>
+<style>
+	.myimg{
 
+	max-height:160px;
+	width:auto;
+	}
+
+</style>
 <body>
 		<div id="header">
 			<div class="container">
@@ -44,20 +54,21 @@
 					<!-- Logo -->
 					<div class="header-logo">
 						<a class="logo" href="#">
-							<img src="{% static 'img/logo.png' %}" alt="">
+							<a href="{% url 'home' %}">
+							<img src="{% static 'img/logo.png' %}" class ="myimg" alt=""></a>
 						</a>
 					</div>
 
 					<div class="header-search">
-						   <form>
+						   <form action="" method="get">
 							   {% csrf_token %}
-							<input class="input search-input" type="text" placeholder="Введите название">
-							<select class="input search-categories">
+							<input name="search_box" class="input search-input" type="text" placeholder="Введите название">
+							<!--<select class="input search-categories">-->
 
-								<option value="0">Поиск по ресторанам</option>
-								<option value="1">Поиск по блюдам</option>
-							</select>
-							<a href="" class="search-btn"><i class="fa fa-search"></i></a>
+								<!--<option value="0">Поиск по ресторанам</option>-->
+								<!--<option value="1">Поиск по блюдам</option>-->
+							<!--</select>-->
+							   <button class="search-btn"><i class="fa fa-search"></i></button>
 						</form>
 					</div>
 
@@ -65,7 +76,12 @@
 {% block body %}
 {% endblock %}
 
-
+	<!--<p>-->
+	<!--Cart: <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)-->
+	<!--<br />-->
+	<!--<a href="javascript:;" class="simpleCart_empty">empty cart</a>-->
+	<!--<br />-->
+	<!--</p>-->
 
 
 

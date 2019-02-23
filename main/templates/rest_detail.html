@@ -5,28 +5,38 @@
 
 			<div class="row">
 				<!--  Product Details -->
-				<div class="col-md-6">
+
 					<!--{% for image in rest.images.all %}-->
 					   <!--<div class="product-view">-->
 						   <!--<img src="{{ image.image.url }}" class = 'img-responsive myimg' alt="">-->
 					   <!--</div>-->
 					<!--{% endfor %}-->
 
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-	{% for image in rest.images.all %}
-    <div class="carousel-item active">
-		<img src="{{ image.image.url }}" class = 'img-responsive' alt="">
+<!--<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">-->
+  <!--<div class="carousel-inner">-->
+	<!--{% for image in rest.images.all %}-->
+    <!--<div class="carousel-item active">-->
+		<!--<img src="{{ image.image.url }}" class = 'img-responsive' alt="">-->
 
-    </div>
-{% endfor %}
-</div>
+    <!--</div>-->
+<!--{% endfor %}-->
+<!--</div>-->
 
+		<!-- container -->
+		<div class="container">
+			<div class="col-md-6">
+		<div class="home-wrap">
+				<!-- home slick -->
+				<div id="home-slick">
+					{% for image in rest.images.all %}
+    					<div class="banner banner-1">
+							<img src="{{ image.image.url }}" alt="">
 
-
+   						 </div>
+					{% endfor %}
 
 				</div>
-				</div>
+		</div></div>
 
 					<div class="col-md-6">
 						<div class="product-body">

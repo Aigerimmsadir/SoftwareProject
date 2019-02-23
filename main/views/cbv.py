@@ -9,7 +9,7 @@ from main.serializers import *
 from main.models import Restaurant,Dish,DishReview,RestaurantReview
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
-from main.forms import RestaurantForm
+from django.db.models import Count
 class RestaurantList(APIView):
     pagination_class = (PageNumberPagination,)
     def get(self, request):
@@ -37,9 +37,9 @@ class RestaurantDetail(APIView):
 class DishList(APIView):
 
     def get(self, request):
-        dish = Dish.objects.all()
-        serializer = DishModelSerializer(dish, many=True)
-        return Response(serializer.data)
+        dishes = Dish.objects.all()
+
+        return render(request,'dish_list.html',{'dishes':dishes})
 
 
 class DishDetail(APIView):
@@ -132,31 +132,6 @@ class DishReviewList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class DishReviewDetail(APIView):
-    permission_classes = (IsAuthenticated,)
-    def get_object(self, pk):
-        try:
-            return DishReview.objects.get(id=pk)
-        except DishReview.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk):
-        dish_review = self.get_object(pk)
-        serializer = DishReviewModelSerializer(dish_review)
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-        dish_review = self.get_object(pk)
-        serializer = DishReviewModelSerializer(instance=dish_review, data=request.data)
-        if serializer.is_valid():
-            serializer.save(user = request.user)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk):
-        dish_review = self.get_object(pk)
-        dish_review.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 
@@ -208,8 +183,9 @@ class DishesOfRestaurant(APIView):
     def get(self, request, pk):
         restaurant = self.get_object(pk)
         rest_dishes = restaurant.dishes.all()
-        serializer = DishModelSerializer(rest_dishes,many=True)
-        return Response(serializer.data)
+        context={'dishes':rest_dishes}
+        return render(request,'dish_list.html',context)
+
 class TopDishesOfRestaurant(APIView):
     def get_object(self, pk):
         try:
@@ -220,18 +196,37 @@ class TopDishesOfRestaurant(APIView):
         restaurant = self.get_object(pk)
         rest_dishes = restaurant.dishes.all()
         sorted_dishes = rest_dishes.order_by('num_of_orders')
-        serializer = DishModelSerializer(sorted_dishes,many=True)
-        return Response(serializer.data)
+        context={'dishes':sorted_dishes}
+        return render(request,'dish_list.html',context)
+
+class TopRestaurants(APIView):
+    def get(self, request):
+
+        rests_all = Restaurant.objects.all()
+        rests = rests_all.annotate(count=Count('restaurant_reviews')).order_by('-count')
+        context={'rests':rests}
+        return render(request,'rest_list.html',context)
+
+class TopDishes(APIView):
+    def get(self, request):
+
+        dishes_all = Dish.objects.all()
+        dishes =  dishes_all.annotate(count=Count('dishes_reviews')).order_by('-count')
+        context={'dishes': dishes}
+        return render(request, 'dish_list.html', context)
+
 class SearchRestaurant(APIView):
 
+    def get_query(self):
+        search_query = self.request.GET.get('search_box')
+        print(search_query)
+        rests = Restaurant.objects.filter(name__contains=search_query)
+        return rests
 
-    def get_queryset(self,rname):
-        try:
-            return Restaurant.objects.filter(name__contains=rname)
-        except Restaurant.DoesNotExist:
-            raise Http404
-    def get(self, request,rname):
-        rests = self.get_queryset(rname)
+    def get(self, request):
+
+        rests = self.get_query(self)
+
         serializer = RestaurantModelSerializer(rests,many=True)
         return Response(serializer.data)
         #return render(serializer)
@@ -250,6 +245,17 @@ class GetDishesByCategory(APIView):
     def get_queryset(self,rname):
         try:
             return Dish.objects.filter(category=rname)
+        except Dish.DoesNotExist:
+            raise Http404
+    def get(self, request,rname):
+        dishes = self.get_queryset(rname)
+        context={'dishes':dishes}
+        return render(request,'dish_list.html',context)
+class SearchDish(APIView):
+
+    def get_queryset(self,rname):
+        try:
+            return Dish.objects.filter(name__contains=rname)
         except Dish.DoesNotExist:
             raise Http404
     def get(self, request,rname):

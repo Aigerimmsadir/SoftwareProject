@@ -8,7 +8,7 @@
 			<div id="responsive-nav">
 				<!-- category nav -->
 				<div class="category-nav show-on-click">
-					<span class="category-header">Categories <i class="fa fa-list"></i></span>
+					<span class="category-header">Категории <i class="fa fa-list"></i></span>
 					<ul class="category-list">
 				<li><a href="{% url 'get_category' 'first' %}">Горячие блюда</a>
 						<li><a href="{% url 'get_category' 'second' %}">Вторые блюда</a></li>
@@ -45,6 +45,22 @@
 			<div class="row">
 				<!-- ASIDE -->
 				<div id="aside" class="col-md-3">
+					<!-- aside widget -->
+
+
+					<!-- /aside widget -->
+
+					<!-- aside widget -->
+					<div class="aside">
+						<h3 class="aside-title">Фильтр по цене</h3>
+						<div id="price-slider"></div>
+					</div>
+					<!-- aside widget -->
+
+
+
+
+					<!-- aside widget -->
 
 					<div class="sort-filter">
 								<span class="text-uppercase">Сортировка по:</span>
@@ -68,26 +84,28 @@
 						<!-- row -->
 						<div class="row">
 							<!-- Product Single -->
-							{% for rest in rests %}
+							{% for dish in dishes %}
 							<div class="col-md-4 col-sm-6 col-xs-6">
 								<div class="product product-single">
 								<div class="product-thumb">
 
-										<img src="{{ rest.images.first.image.url }}" class="myimg" alt="">
+										<img src="{{ dish.images.first.image.url }}" alt="" class="myimg">
 									</div>
 									<div class="product-body">
 
 										<div class="product-rating">
 
-                                		{% for rr in rest.restaurant_reviews.all %}
+                                		{% for dr in dish.dishes_reviews.all %}
 
 											<i class="fa fa-star"></i>
                                         {% endfor %}
 											<i class="fa fa-star-o empty"></i>
 										</div>
-									<a href="http://127.0.0.1:8000/rest_detail/{{rest.id}}" ><h2 class="product-name">{{rest.name}}</h2></a>
+									<a href="http://127.0.0.1:8000/dish_detail/{{dish.id}}" ><h2 class="product-name">{{dish.name}}</h2></a>
+										<h3 class="product-price">{{dish.price}}</h3>
 										<div class="product-btns">
-											<a href="http://127.0.0.1:8000/dishes_of_rest/{{rest.id}}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Перейти к меню</a>
+											<a href="" class="item_add primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Добавить в корзину</a>
+
 										</div>
 									</div>
 								</div>
@@ -102,6 +120,24 @@
 	</div>
 	<!-- /section -->
 	</div>
+		</div>
+	</div>
 
+
+
+
+
+	<p>
+	Cart: <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)
+	<br />
+	<a href="javascript:;" class="simpleCart_empty">empty cart</a>
+	<br />
+	</p>
+SubTotal: <span id="simpleCart_total" class="simpleCart_total"></span> <br />
+	Tax Rate: <span id="simpleCart_taxRate" class="simpleCart_taxRate"></span> <br />
+	Tax: <span id="simpleCart_tax" class="simpleCart_tax"></span> <br />
+	Shipping: <span id="simpleCart_shipping" class="simpleCart_shipping"></span> <br />
+	 -----------------------------<br />
+	Final Total: <span id="simpleCart_grandTotal" class="simpleCart_grandTotal"></span> <br />
 	<!-- FOOTER -->
 	{% endblock %}
