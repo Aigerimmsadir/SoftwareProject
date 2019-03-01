@@ -43,13 +43,17 @@
 
 							<h2 class="product-name">{{rest.name}}</h2>
 							<h3 class="product-price">{{rest.address}} </h3>
+							<a href="http://127.0.0.1:8000/dishes_of_rest/{{rest.id}}" class="primary-btn">Перейти к меню</a>
 							<div>
                                 	<div class="product-rating">
-                                {% for rr in rest.restaurant_reviews.all %}
+										{% for i in stars %}
 
-									<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
                                         {% endfor %}
-									<i class="fa fa-star-o empty"></i>
+										{% for j in remainder %}
+											<i class="fa fa-star-o empty"></i>
+
+                                        {% endfor %}
 								</div>
 								<a href="#">{{ rest.restaurant_reviews.count }} Review(s) / Add Review</a>
 							</div>
@@ -58,7 +62,7 @@
 
 					</div>
 					</div>
-			</div>
+
 
 <div class="row">
 					<div class="col-md-12">
@@ -95,11 +99,9 @@
 											<p>Your email address will not be published.</p>
 											<form class="review-form">
 												<div class="form-group">
-													<input class="input" type="text" placeholder="Your Name" />
+													<input class="input" type="text" placeholder="{{user.username}}" disabled/>
 												</div>
-												<div class="form-group">
-													<input class="input" type="email" placeholder="Email Address" />
-												</div>
+
 												<div class="form-group">
 													<textarea class="input" placeholder="Your review"></textarea>
 												</div>
@@ -129,5 +131,5 @@
 
 				</div>
             </div>
-</div>
+</div>	</div>
 {% endblock %}

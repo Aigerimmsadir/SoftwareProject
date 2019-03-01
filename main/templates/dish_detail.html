@@ -36,11 +36,15 @@
 							<a href="http://127.0.0.1:8000/rest_detail/{{dish.restaurant.id}}" class="product-price">{{dish.restaurant}} </a>
 							<div>
                                 	<div class="product-rating">
-                                {% for rr in rest.dishes_reviews.all %}
+                                {% for i in stars %}
 
 									<i class="fa fa-star"></i>
                                         {% endfor %}
-									<i class="fa fa-star-o empty"></i>
+										{% for j in remainder %}
+										<i class="fa fa-star-o empty"></i>
+
+                                        {% endfor %}
+
 								</div>
 								<a href="#">{{ dish.dishes_reviews.count }} Review(s) / Add Review</a>
 							</div>
@@ -86,11 +90,9 @@
 											<p>Your email address will not be published.</p>
 											<form class="review-form">
 												<div class="form-group">
-													<input class="input" type="text" placeholder="Your Name" />
+													<input class="input" type="text" placeholder="{{user.username}}" disabled/>
 												</div>
-												<div class="form-group">
-													<input class="input" type="email" placeholder="Email Address" />
-												</div>
+
 												<div class="form-group">
 													<textarea class="input" placeholder="Your review"></textarea>
 												</div>

@@ -1,4 +1,6 @@
 from django.http import Http404
+from django.db.models import FloatField
+from django.db.models import Avg
 from django.shortcuts import render, redirect
 from rest_framework import status
 from rest_framework.response import Response
@@ -10,6 +12,9 @@ from main.models import Restaurant,Dish,DishReview,RestaurantReview
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count
+
+
+
 class RestaurantList(APIView):
     pagination_class = (PageNumberPagination,)
     def get(self, request):
@@ -28,10 +33,18 @@ class RestaurantDetail(APIView):
 
     def get(self, request, pk):
         rest = self.get_object(pk)
-        context = {
-            'rest':rest
-        }
-        return render(request,'rest_detail.html',context)
+        stars_map = rest.restaurant_reviews.all().aggregate(Avg('stars'))
+        stars1 = stars_map.get('stars__avg')
+
+        if stars1 is not None:
+            stars = int(stars1)
+            remainder = abs(5 - stars)
+            if (remainder < 1):
+                remainder = 0
+        else:
+            stars = 0
+            remainder = 5
+        return render(request,'rest_detail.html',{'rest':rest,'stars':range(stars), 'remainder':range(remainder)})
 
 
 class DishList(APIView):
@@ -52,8 +65,18 @@ class DishDetail(APIView):
 
     def get(self, request, pk):
         dish = self.get_object(pk)
+        stars_map= dish.dishes_reviews.all().aggregate(Avg('stars'))
+        stars1 = stars_map.get('stars__avg')
 
-        return render(request, 'dish_detail.html', {'dish':dish})
+        if stars1 is not None:
+            stars = int(stars1)
+            remainder = abs(5-stars)
+            if(remainder<1):
+                remainder=0
+        else:
+            stars=0
+            remainder=5
+        return render(request, 'dish_detail.html', {'dish':dish,'stars':range(stars),'remainder':range(remainder)})
 
 
 
@@ -184,7 +207,7 @@ class DishesOfRestaurant(APIView):
         restaurant = self.get_object(pk)
         rest_dishes = restaurant.dishes.all()
         context={'dishes':rest_dishes}
-        return render(request,'dish_list.html',context)
+        return render(request,'dish_of_rest.html',context)
 
 class TopDishesOfRestaurant(APIView):
     def get_object(self, pk):
@@ -197,7 +220,8 @@ class TopDishesOfRestaurant(APIView):
         rest_dishes = restaurant.dishes.all()
         sorted_dishes = rest_dishes.order_by('num_of_orders')
         context={'dishes':sorted_dishes}
-        return render(request,'dish_list.html',context)
+        return render(request,'dish_of_rest.html',context)
+
 
 class TopRestaurants(APIView):
     def get(self, request):

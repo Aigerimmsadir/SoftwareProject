@@ -47,6 +47,7 @@ class RestaurantReview(models.Model):
     restaurant = models.ForeignKey(Restaurant,on_delete = models.CASCADE,related_name='restaurant_reviews')
     user = models.ForeignKey(User,on_delete = models.CASCADE,related_name='restaurant_reviews')
     review = models.ForeignKey(Review,on_delete = models.CASCADE,related_name='restaurant_reviews')
+    stars =models.FloatField(null=True, blank=True, default=0.0)
     def __str__(self):
         return "{}:\n{}".format(self.user,self.review)
 
@@ -54,6 +55,7 @@ class DishReview(models.Model):
     dish = models.ForeignKey(Dish,on_delete = models.CASCADE,related_name='dishes_reviews')
     user = models.ForeignKey(User,on_delete = models.CASCADE,related_name='dishes_reviews')
     review = models.ForeignKey(Review,on_delete = models.CASCADE,related_name='dishes_reviews')
+    stars = models.FloatField(null=True, blank=True, default=0.0)
     def __str__(self):
         return "{}:\n{}".format(self.user,self.review)
 
