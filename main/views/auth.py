@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from main.serializers import UserModelSerializer
 
 
-
+ 
 class UserCreate(APIView):
 
     def post(self, request, format='json'):

@@ -13,7 +13,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count
 
-
+ 
 
 class RestaurantList(APIView):
     pagination_class = (PageNumberPagination,)
