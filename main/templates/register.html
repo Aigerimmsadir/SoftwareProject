@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
+<div class="container">
     <h1>Registration</h1>
 
     {% if error %}
@@ -13,5 +13,5 @@
         {{ form.as_table}}
         <input type="submit" class="btn btn-primary">
     </form>
-
+</div>
 {% endblock %}

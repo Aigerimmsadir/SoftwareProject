@@ -68,7 +68,7 @@ class Order(models.Model):
 
     owner = models.ForeignKey(User,on_delete = models.CASCADE,related_name='user_orders')
     def __str__(self):
-        return "{}:{},{}".format(self.owner,self.restaurant,self.order_items)
+        return "{}:{},{}".format(self.owner,self.price,self.order_items)
 
 class OrderItem(models.Model):
     dish = models.ForeignKey(Dish, on_delete = models.CASCADE)

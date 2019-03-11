@@ -52,3 +52,8 @@ def current_user(request):
 def home(request):
     rests = Restaurant.objects.all()[:4]
     return render(request,"index.html",{'rests':rests})
+
+@api_view(['GET'])
+@csrf_exempt
+def success(request):
+    return render(request, "success.html")

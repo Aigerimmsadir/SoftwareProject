@@ -1,7 +1,39 @@
 {% extends 'base.html' %}
  
 {% block body %}
+	<div id="navigation">
+		<!-- container -->
+		<div class="container">
+			<div id="responsive-nav">
+				<!-- category nav -->
+				<div class="category-nav show-on-click">
+					<span class="category-header">Категории <i class="fa fa-list"></i></span>
+					<ul class="category-list">
+						<li><a href="{% url 'get_category' 'first' %}">Горячие блюда</a>
+						<li><a href="{% url 'get_category' 'second' %}">Вторые блюда</a></li>
+						<li><a href="{% url 'get_category' 'snack' %}">Закуски </a>
 
+						</li>
+						<li><a href="{% url 'get_category' 'fast-food' %}">Фаст-фуд</a></li>
+						<li><a href="{% url 'get_category' 'salad' %}">Салаты</a></li>
+						<li><a href="{% url 'get_category' 'desert' %}">Десерты </a>
+
+						</li>
+						<li><a href="{% url 'get_category' 'drink' %}">Напитки</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="{%url 'home'%}">Главная</a></li>
+				<li><a href="{%url 'rest_list'%}">Рестораны</a></li>
+				<li><a href="http://127.0.0.1:8000/rest_detail/{{dish.restaurant.id}}">{{dish.restaurant.name}}</a></li>
+				<li class="active">{{dish.name}}</li>
+			</ul>
+		</div>
 <div class="container">
 			<div class="row">
 				<!--  Product Details -->
@@ -49,7 +81,7 @@
 								<a href="#">{{ dish.dishes_reviews.count }} Review(s) / Add Review</a>
 							</div>
 
-							<p>this will be description</p>
+							<p></p>
 
 					</div>
 					</div>
@@ -60,12 +92,12 @@
 						<div class="product-tab">
 							<ul class="tab-nav">
 
-								<li><a data-toggle="tab" href="#tab1">Details</a></li>
-								<li><a data-toggle="tab" href="#tab2">Reviews (3)</a></li>
+								<li><a data-toggle="tab" href="#tab1">Детали</a></li>
+								<li><a data-toggle="tab" href="#tab2">Отзывы</a></li>
 							</ul>
 							<div class="tab-content">
 								<div id="tab1" class="tab-pane fade in active">
-                                    <p>this will be description </p>
+
 								<div id="tab2" class="tab-pane fade in">
 
 									<div class="row">
@@ -86,19 +118,19 @@
 													</div>
 										</div>
 										<div class="col-md-6">
-											<h4 class="text-uppercase">Write Your Review</h4>
-											<p>Your email address will not be published.</p>
+											<h4 class="text-uppercase">Оставить отзыв:</h4>
+											<p>Ваш email не будет опубликован </p>
 											<form class="review-form">
 												<div class="form-group">
 													<input class="input" type="text" placeholder="{{user.username}}" disabled/>
 												</div>
 
 												<div class="form-group">
-													<textarea class="input" placeholder="Your review"></textarea>
+													<textarea class="input" placeholder="Ваш отзыв"></textarea>
 												</div>
 												<div class="form-group">
 													<div class="input-rating">
-														<strong class="text-uppercase">Your Rating: </strong>
+														<strong class="text-uppercase">Оценка: </strong>
 														<div class="stars">
 															<input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
 															<input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
@@ -108,7 +140,7 @@
 														</div>
 													</div>
 												</div>
-												<button class="primary-btn">Submit</button>
+												<button class="primary-btn">Отправить</button>
 											</form>
 										</div>
 									</div>

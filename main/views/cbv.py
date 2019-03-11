@@ -12,7 +12,7 @@ from main.models import Restaurant,Dish,DishReview,RestaurantReview
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count
-
+from main.forms import *
  
 
 class RestaurantList(APIView):
@@ -157,7 +157,32 @@ class DishReviewList(APIView):
 
 
 
+class Checkout(APIView):
+    permission_classes = (IsAuthenticated,)
+    def post(self, request):
 
+        items=request.POST.get('items')
+        product_string=items.split(';')
+        product_string=product_string[:-1]
+        price =0
+        order = Order()
+        order.owner=request.user
+        order.save()
+        for product in product_string:
+            product_fields=product.split(',')
+            for j in range(int(product_fields[2])):
+                order_item=OrderItem()
+                dish = Dish.objects.get(name=product_fields[1])
+                order_item.dish=dish
+                order_item.order=order
+                price+=int(product_fields[0])
+                order_item.save()
+        order.price=price
+        order.save()
+        context = {
+            'order':order
+        }
+        return render(request,'checkout.html',context)
 
 class OrderList(APIView):
 

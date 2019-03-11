@@ -87,8 +87,7 @@
 
 							<a href="#" class="text-uppercase">
 	  {% if user.is_authenticated %}
-	<span class="users">{{user.username}} |
-	<a href="{% url 'newlogin' %}" >авторизован!</a></span>
+	<span class="users">{{user.username}}
 	   {% else %}
 	  <a href="{% url 'newregister' %} " class='users'>нет!</a>
 	      {% endif %}
@@ -125,13 +124,14 @@
 											<!--</div>-->
 											<!--<button class="cancel-btn"><i class="fa fa-trash"></i></button>-->
 										<!--</div>-->
-
+												<div class="shopping-cart-btns">
+													<button type="submit" id="create_order" class="btn btn-primary">
+														Оформить заказ</button><br>
+													<button class="btn btn-danger" id="clear_cart">
+														Очистить корзину</button>
+												</div>
 									</div>
-									<div class="shopping-cart-btns">
-										<a href="" id="create_order" class="btn btn-primary">Оформить заказ</a><br>
 
-										<a href=""  class='btn btn-danger' id="clear_cart">Очистить корзину</a>
-									</div>
 
 								</div>
 							</div>
@@ -317,13 +317,17 @@ function openCart(e){
 	console.log(JSON.stringify(cartData));
 	// если что-то в корзине уже есть, начинаем формировать данные для вывода
 	if(cartData !== null){
-		totalItems = '<div class="product product-widget">';
+		var order='';
+		totalItems = '<div class="product product-widget"><form action="{% url 'checkout' %}" method="post"> {% csrf_token %} ';
 		for(var items in cartData){
-				totalItems +='<div class="product-body"><h3 class="product-price">'+
+
+totalItems +='<div class="product-body"><h3 class="product-price">'+
 												cartData[items][1]+ '<br><span class="qty">'+cartData[items][2]+
 												'</span></h3><h2 class="product-name"><a href="#">'+cartData[items][0]+'</a></h2></div>';
+				order+=cartData[items][1]+","+cartData[items][0]+","+cartData[items][2]+";";
 		}
-		totalItems +='</div>';
+		totalItems+='<input type="text" name="items" class="form-control" value='+order+'>';
+		totalItems+='<button type="submit" id="create_order" class="btn btn-primary">Оформить заказ</button></form><br><a href=""  class="btn btn-danger" id="clear_cart">Очистить корзину</a></div>';
 		cartCont.innerHTML = totalItems;
 	} else {
 		// если в корзине пусто, то сигнализируем об этом

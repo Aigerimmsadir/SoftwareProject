@@ -14,7 +14,7 @@ urlpatterns = [
     path('current_user/',views.current_user,name='current_user'),
     path('rest_review_detai/<int:pk>',views.RestaurantReviewDetail.as_view()),
     path('dish_review_list/<int:pk>', views.DishReviewList.as_view()),
-
+    path('checkout/', views.Checkout.as_view(), name='checkout'),
     path('order_list/', views.OrderList.as_view()),
     path('order_detail/<int:pk>', views.OrderDetail.as_view()),
     path('dishes_of_rest/<int:pk>',views.DishesOfRestaurant.as_view(),name='dishes_of_rest'),
@@ -25,6 +25,7 @@ urlpatterns = [
     path('newlogin/', views.mynewlogin, name='newlogin'),
     path('newregister/', views.mynewregister, name='newregister'),
     path('newlogout/', views.logout, name='newlogout'),
+    path('success/', views.success, name='success'),
     path('get_category/<slug:rname>',views.GetDishesByCategory.as_view(),name='get_category')
 
 ]
